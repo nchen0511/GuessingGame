@@ -4,6 +4,8 @@ public class Guess {
     public static void main(String[] args) {
         System.out.println("Hello, user, what should I refer to you as?");
         Scanner number = new Scanner(System.in);
+        boolean error = false;
+
         String name = number.next();
         System.out.println("Hi, " + name + ". Let's play a guessing game. Do you want (m)e to guess, or (y)ou? Or would you rather play (h)angman?");
         String mode = number.next();
@@ -74,20 +76,43 @@ public class Guess {
             System.out.println("What is your word?");
             int life = 7;
             String word = number.next().toLowerCase();
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\nMake sure to remember your word! Now it's player two's turn to guess a letter.");
+            String win = word;
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMake sure to remember your word! Now it's player two's turn to guess a letter.");
             String progress = "";
             for(int i=0;i<word.length();i++){
                 progress+="_";
             }
+            String progressDisplay = "";
+            for(int i=0;i<progress.length();i++){
+                progressDisplay += progress.substring(i,i+1) + " ";
+            }
+            System.out.println(progressDisplay);
             while(true){
                 String letter = number.next().toLowerCase();
                 if(letter.length()==1){
                     if(word.contains(letter)){
-                        String check = word;
-                        while(check.contains(letter)){
-                            progress = progress.substring();// WIP
-                            check = check.substring(); //WIP
-                            )
+                        while(word.contains(letter)){
+                            progress = progress.substring(0,word.indexOf(letter)) + word.substring(word.indexOf(letter),word.indexOf(letter)+1) + progress.substring(word.indexOf(letter)+1);
+                            word = word.substring(0,word.indexOf(letter)) + "-" + word.substring(word.indexOf(letter)+1);
+                        }
+                        if(progress.equals(win)){
+                            System.out.println("Nice job, the word was " + win + "!");
+                            break;
+                        } else {
+                            progressDisplay = "";
+                            for(int i=0;i<progress.length();i++){
+                                progressDisplay += progress.substring(i,i+1) + " ";
+                            }
+                            System.out.println("Nice!\n" + progressDisplay);
+                        }
+                    } else {
+                        life--;
+                        if(life>0){
+                            draw(life);
+                            System.out.println("Try again!");
+                        } else {
+                            System.out.println("You're out of lives! Game over!");
+                            break;
                         }
                     }
                 } else {
@@ -99,6 +124,18 @@ public class Guess {
         }
     }
     public static void draw(int life){
-        System.out.println("O");
+            System.out.println(" O");
+        if (life==5) {
+            System.out.println(" |");
+        } else if (life==4) {
+            System.out.println("/|");
+        } else if (life<4){
+            System.out.println("/|\\");
+        }
+        if (life==2) {
+            System.out.println("/");
+        }else if(life<2) {
+            System.out.println("/ \\");
+        }
     }
 }
