@@ -12,7 +12,7 @@ public class Guess {
         String mode = number.next();
         if (mode.equals("m")) {
             System.out.println("Pick a number between 1 to 100, I'll guess it!");
-            System.out.println("You have to tell me if my number is (g)reater or (l)esser than your number, or if I'm (c)orrect).");
+            System.out.println("You have to tell me if my number is (g)reater or (l)ess than your number, or if I'm (c)orrect).");
             System.out.println("Ready, " + name + "? Here I go!");
             int count = 1;
             int first = 0;
@@ -31,7 +31,7 @@ public class Guess {
                     count++;
                     last = avg;
                 } else {
-                    System.out.println("You have to tell me if my number is (g)reater or (l)esser than your number, or if I'm (c)orrect)!");
+                    System.out.println("You have to tell me if my number is (g)reater or (l)ess than your number, or if I'm (c)orrect)!");
                 }
                 if (count > 7) {
                     System.out.println("Hmm... I think you were lying at some point, " + name + ".");
@@ -68,7 +68,7 @@ public class Guess {
                         break;
                     } else {
                         if (guess > num) {
-                            System.out.println("The number is lesser than " + guess + ", try again!");
+                            System.out.println("The number is less than " + guess + ", try again!");
                             count++;
                         } else {
                             System.out.println("The number is greater than " + guess + ", try again!");
@@ -122,7 +122,7 @@ public class Guess {
                             draw(life);
                             System.out.println("Try again!");
                         } else {
-                            System.out.println("You're out of lives! Game over!");
+                            System.out.println("You're out of lives! Game over! The word was " + win + ".");
                             break;
                         }
                     }
