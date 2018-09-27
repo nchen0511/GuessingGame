@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Guess {
@@ -38,7 +39,7 @@ public class Guess {
                 }
             }
             if (count < 8) {
-                System.out.println("Nice! I got it! That only took me " + count + " tries, " + name + ".");
+                System.out.println("Nice! I got it! That only took me " + count + " guess(es), " + name + ".");
             }
         } else if (mode.equals("y")) {
             System.out.println("Okay, " + name + ", please select a difficulty (1~4).");
@@ -46,27 +47,37 @@ public class Guess {
             int difficulty;
             int count = 0;
             while (true) {
-                difficulty = number.nextInt();
-                if (difficulty > 4 || difficulty < 1) {
-                    System.out.println("Hey, that's out of the scale! Enter a valid number");
-                } else {
-                    num = (int) (Math.random() * Math.pow(10, difficulty));
-                    break;
+                try {
+                    difficulty = number.nextInt();
+                    if (difficulty > 4 || difficulty < 1) {
+                        System.out.println("Hey, that's out of the scale! Enter a valid number");
+                    } else {
+                        num = (int) (Math.random() * Math.pow(10, difficulty));
+                        break;
+                    }
+                } catch (InputMismatchException e){
+                    System.out.println("Please enter a valid number!");
+                    String clear = number.next();
                 }
             }
             System.out.println("I am thinking of a number between 0 to " + (int) (Math.pow(10, difficulty)) + " (including 0), can you guess it, " + name + "?");
             while (true) {
-                int guess = number.nextInt();
-                if (guess == num) {
-                    break;
-                } else {
-                    if (guess > num) {
-                        System.out.println("The number is lesser than " + guess + ", try again!");
-                        count++;
+                try {
+                    int guess = number.nextInt();
+                    if (guess == num) {
+                        break;
                     } else {
-                        System.out.println("The number is greater than " + guess + ", try again!");
-                        count++;
+                        if (guess > num) {
+                            System.out.println("The number is lesser than " + guess + ", try again!");
+                            count++;
+                        } else {
+                            System.out.println("The number is greater than " + guess + ", try again!");
+                            count++;
+                        }
                     }
+                } catch (InputMismatchException e){
+                    System.out.println("Please enter a valid number!");
+                    String clear = number.next();
                 }
             }
             number.close();
